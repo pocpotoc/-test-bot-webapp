@@ -11,12 +11,39 @@
     </style>
 </head>
 <body>
-    <button id="sendBtn">Отправить в чат</button>
+    <button id="sendBtn">Отправить в чат и закрыть</button>
+    <button id="sendBtnNoClose">Отправить в чат (не закрывать)</button>
+    <button id="toPage2">Вторая страница</button>
+    <div style="margin-top:2em;">
+        <label>
+            <input type="checkbox" id="rememberCheck"> Запомнить меня (localStorage)
+        </label>
+    </div>
     <script>
         const tg = window.Telegram.WebApp;
+
+        // Кнопка отправки данных в чат и закрытия мини-аппа
         document.getElementById('sendBtn').onclick = function() {
             tg.sendData('send_buttons');
             tg.close();
+        };
+
+        // Кнопка отправки данных в чат без закрытия мини-аппа
+        document.getElementById('sendBtnNoClose').onclick = function() {
+            tg.sendData('send_buttons');
+        };
+
+        // Кнопка перехода на вторую страницу
+        document.getElementById('toPage2').onclick = function() {
+            window.location.href = 'page2.html';
+        };
+
+        // Работа с localStorage
+        const rememberCheck = document.getElementById('rememberCheck');
+        // Восстановить состояние чекбокса
+        rememberCheck.checked = localStorage.getItem('rememberMe') === 'true';
+        rememberCheck.onchange = function() {
+            localStorage.setItem('rememberMe', rememberCheck.checked);
         };
     </script>
 </body>

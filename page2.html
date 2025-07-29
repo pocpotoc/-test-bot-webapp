@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вторая страница</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #e0f7fa; }
+        h2 { color: #0088cc; }
+        button { font-size: 1.1em; padding: 0.8em 1.5em; border-radius: 8px; border: none; background: #0088cc; color: #fff; cursor: pointer; margin-top: 2em; }
+        button:hover { background: #005f8c; }
+    </style>
+</head>
+<body>
+    <h2>Это вторая страница!</h2>
+    <button id="backBtn">Назад</button>
+    <script>
+        document.getElementById('backBtn').onclick = function() {
+            window.location.href = 'index.html';
+        };
+    </script>
+</body>
+</html>
