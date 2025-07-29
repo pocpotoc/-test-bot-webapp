@@ -23,14 +23,25 @@
     </div>
     <script>
         const tg = window.Telegram.WebApp;
+        console.log('tg:', tg);
         // Кнопка отправки данных в чат и закрытия мини-аппа
         document.getElementById('sendBtn').onclick = function() {
-            tg.sendData('send_buttons');
-            tg.close();
+            console.log('click: sendBtn');
+            if (tg && tg.sendData) {
+                tg.sendData('send_buttons');
+                tg.close();
+            } else {
+                alert('Telegram.WebApp не найден!');
+            }
         };
         // Кнопка отправки данных в чат без закрытия мини-аппа
         document.getElementById('sendBtnNoClose').onclick = function() {
-            tg.sendData('send_buttons');
+            console.log('click: sendBtnNoClose');
+            if (tg && tg.sendData) {
+                tg.sendData('send_buttons');
+            } else {
+                alert('Telegram.WebApp не найден!');
+            }
         };
         // Кнопка назад
         document.getElementById('backBtn').onclick = function() {
