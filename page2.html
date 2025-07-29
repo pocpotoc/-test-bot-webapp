@@ -13,10 +13,34 @@
 </head>
 <body>
     <h2>Это вторая страница!</h2>
+    <button id="sendBtn">Отправить в чат и закрыть</button>
+    <button id="sendBtnNoClose">Отправить в чат (не закрывать)</button>
     <button id="backBtn">Назад</button>
+    <div style="margin-top:2em;">
+        <label>
+            <input type="checkbox" id="rememberCheck"> Запомнить меня (localStorage)
+        </label>
+    </div>
     <script>
+        const tg = window.Telegram.WebApp;
+        // Кнопка отправки данных в чат и закрытия мини-аппа
+        document.getElementById('sendBtn').onclick = function() {
+            tg.sendData('send_buttons');
+            tg.close();
+        };
+        // Кнопка отправки данных в чат без закрытия мини-аппа
+        document.getElementById('sendBtnNoClose').onclick = function() {
+            tg.sendData('send_buttons');
+        };
+        // Кнопка назад
         document.getElementById('backBtn').onclick = function() {
             window.location.href = 'index.html';
+        };
+        // Работа с localStorage
+        const rememberCheck = document.getElementById('rememberCheck');
+        rememberCheck.checked = localStorage.getItem('rememberMe') === 'true';
+        rememberCheck.onchange = function() {
+            localStorage.setItem('rememberMe', rememberCheck.checked);
         };
     </script>
 </body>
