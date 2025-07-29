@@ -20,21 +20,28 @@
         </label>
     </div>
     <script>
+        // Если в localStorage сохранена страница, делаем редирект
+        if (localStorage.getItem('lastPage') && localStorage.getItem('lastPage') !== 'index.html') {
+            window.location.href = localStorage.getItem('lastPage');
+        }
         const tg = window.Telegram.WebApp;
 
         // Кнопка отправки данных в чат и закрытия мини-аппа
         document.getElementById('sendBtn').onclick = function() {
+            localStorage.setItem('lastPage', 'index.html');
             tg.sendData('send_buttons');
             tg.close();
         };
 
         // Кнопка отправки данных в чат без закрытия мини-аппа
         document.getElementById('sendBtnNoClose').onclick = function() {
+            localStorage.setItem('lastPage', 'index.html');
             tg.sendData('send_buttons');
         };
 
         // Кнопка перехода на вторую страницу
         document.getElementById('toPage2').onclick = function() {
+            localStorage.setItem('lastPage', 'page2.html');
             window.location.href = 'page2.html';
         };
 
