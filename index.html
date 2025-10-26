@@ -1,57 +1,46 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Мини-апп Telegram</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body { display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f5f5f5; }
-        button { font-size: 1.2em; padding: 1em 2em; border-radius: 8px; border: none; background: #0088cc; color: #fff; cursor: pointer; }
-        button:hover { background: #005f8c; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Motion v11 — Loop Mirror (scale)</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #0b0b0b;
+      display: grid;
+      place-items: center;
+    }
+    .dot {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: #fff;
+    }
+  </style>
 </head>
 <body>
-    <button id="sendBtn">Отправить в чат и закрыть</button>
-    <button id="sendBtnNoClose">Отправить в чат (не закрывать)</button>
-    <button id="toPage2">Вторая страница</button>
-    <div style="margin-top:2em;">
-        <label>
-            <input type="checkbox" id="rememberCheck"> Запомнить меня (localStorage)
-        </label>
-    </div>
-    <script>
-        // Если в localStorage сохранена страница, делаем редирект
-        if (localStorage.getItem('lastPage') && localStorage.getItem('lastPage') !== 'index.html') {
-            window.location.href = localStorage.getItem('lastPage');
-        }
-        const tg = window.Telegram.WebApp;
+  <div class="dot"></div>
 
-        // Кнопка отправки данных в чат и закрытия мини-аппа
-        document.getElementById('sendBtn').onclick = function() {
-            localStorage.setItem('lastPage', 'index.html');
-            tg.sendData('send_buttons');
-            tg.close();
-        };
+  <!-- Новая Motion (v11+) -->
+  <script type="module">
+    import { animate } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm";
 
-        // Кнопка отправки данных в чат без закрытия мини-аппа
-        document.getElementById('sendBtnNoClose').onclick = function() {
-            localStorage.setItem('lastPage', 'index.html');
-            tg.sendData('send_buttons');
-        };
+    const el = document.querySelector(".dot");
 
-        // Кнопка перехода на вторую страницу
-        document.getElementById('toPage2').onclick = function() {
-            localStorage.setItem('lastPage', 'page2.html');
-            window.location.href = 'page2.html';
-        };
-
-        // Работа с localStorage
-        const rememberCheck = document.getElementById('rememberCheck');
-        // Восстановить состояние чекбокса
-        rememberCheck.checked = localStorage.getItem('rememberMe') === 'true';
-        rememberCheck.onchange = function() {
-            localStorage.setItem('rememberMe', rememberCheck.checked);
-        };
-    </script>
+    animate(
+      el,
+      { scale: [1, 1.08] },
+      {
+        duration: 0.5,
+        delay: 2,                     // перед стартом
+        repeatDelay: 1,               // пауза между циклами
+        ease: [0.12, 0.23, 0.5, 1],
+        repeat: Infinity,
+        repeatType: "mirror"          // Mirror
+      }
+    );
+  </script>
 </body>
 </html>
